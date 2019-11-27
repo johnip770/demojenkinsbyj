@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fb586cb7-656d-4456-8a43-a42244a8221f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="demojenkinsbyjFlow" doc:id="537cbf30-a909-44df-889a-aa620c594536" >
+		<http:listener doc:name="Listener" doc:id="af66e0bf-afda-42ea-8952-574d61f3c6ed" config-ref="HTTP_Listener_config" path="/getMyFirstName"/>
+		<ee:transform doc:name="Transform Message" doc:id="84bb9fda-6043-490b-b38f-fb8deb961072" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/Json
+---
+{
+	"FirstName": "Robin Hood"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
